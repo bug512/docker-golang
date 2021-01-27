@@ -1,0 +1,14 @@
+version: "3.6"
+services:
+  golang-web:
+    build: 
+      context: ./
+      args: 
+        APP_NAME: ${APP_NAME}
+        PORT: ${PORT}
+    ports:
+      - ${PORT}:${PORT}
+    volumes: 
+      - ./app/src:/go/src/${APP_NAME}
+    env_file: 
+      - .env
