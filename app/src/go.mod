@@ -1,4 +1,4 @@
-module tvil.ru/tvilCrawler
+module crawler
 
 go 1.14
 

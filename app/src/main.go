@@ -14,6 +14,8 @@ import (
 	"fmt"
 
 	"github.com/gocolly/colly"
+
+	teststring "crawler/teststring"
 )
 
 func main() {
@@ -21,6 +23,7 @@ func main() {
 	http.HandleFunc("/", ExampleHandler)
 	http.HandleFunc("/api/crawler/getRussianText", GetRussianTextHandler)
 	http.HandleFunc("/api/crawler/visit", visit)
+	http.HandleFunc("/showString", ShowStringHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -96,4 +99,15 @@ func visit(w http.ResponseWriter, r *http.Request) {
 
 	// Start scraping on https://hackerspaces.org
 	c.Visit("https://bookingcamps.com")
+}
+
+func ShowStringHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "application/json")
+	m := teststring.ShowString()
+	result, err := json.Marshal(m)
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		io.WriteString(w, string(result))
+	}
 }
